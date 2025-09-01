@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f9f9f9;
+        padding: 20px;
+    }
+    header, footer {
+        text-align: center;
+        padding: 20px;
+        background-color: white;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0,1);
+    }
+    .product-grid {
+        display: grid;
+        gap: 20px;
+    }
+    .product-card {
+        background-color: white;
+        padding: 15px;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0,1);
+    }
+    .product-card img {
+        width: 100px;
+        margin-bottom: 10px;
+    }
+    .product-card button {
+        margin-top: 10px;
+        padding: 10px 15px;
+        background-color: blue;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .product-card button:hover {
+        background-color: darkblue;
+    }
+
+    @media (min-width: 600px) {
+        .product-grid {
+            grid-template-columns: repeat(2,1fr);
+        }
+    }
+
+    @media (min-width: 900px) {
+        .product-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+</style>
+<body>
+    <header><h1>Product Showcase</h1></header>
+
+    <main class="product-grid">
+    <div class="product-card">
+        <img src="watch.jpg" alt="watch">
+        <h2>Smart Watch</h2>
+        <p>$59.99</p>
+        <p>This is a placeholder description for the product</p>
+        <button>Buy Now</button>
+    </div>
+
+    <div class="product-card">
+        <img src="headphone.jpg" alt="headphone">
+        <h2>Headphone</h2>
+        <p>$49.99</p>
+        <p>This is a placeholder description for the product</p>
+        <button>Buy Now</button>
+    </div>
+    
+    <div class="product-card">
+        <img src="charger.jpg" alt="charger">
+        <h2>Charger</h2>
+        <p>$69.99</p>
+        <p>This is a placeholder description for the product</p>
+        <button>Buy Now</button>
+    </div>
+
+    <div class="product-card">
+        <img src="speaker.jpg" alt="speaker">
+        <h2>Speaker</h2>
+        <p>$79.99</p>
+        <p>This is a placeholder description for the product</p>
+        <button>Buy Now</button>
+    </div>
+</main>
+    <footer>
+        <p>2025 Product Store</p>
+    </footer>
+</body>
+</html>

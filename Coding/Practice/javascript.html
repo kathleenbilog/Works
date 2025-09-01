@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lab Problem Sets</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    section { margin-bottom: 30px; }
+    input, textarea, button { margin: 5px 0; padding: 5px; }
+    pre { background: #f0f0f0; padding: 10px; }
+  </style>
+</head>
+<body>
+
+  <h1>Laboratory Problem Sets</h1>
+
+  <!-- 1. Reverse Words in Sentence -->
+  <section>
+    <h2>1. Reverse Words in Sentence (10pts)</h2>
+    <textarea id="sentenceInput" rows="3" cols="50" placeholder="Enter your sentence here..."></textarea><br>
+    <button onclick="reverseWords()">Process</button>
+    <p><strong>Reversed Words:</strong></p>
+    <pre id="reversedOutput"></pre>
+    <p><strong>Word Count:</strong> <span id="wordCount"></span></p>
+  </section>
+
+  <!-- 2. Right Triangle on Keyup -->
+  <section>
+    <h2>2. Right Triangle on Keyup Event (5pts)</h2>
+    <input type="number" id="triangleInput" placeholder="Enter a number" onkeyup="drawTriangle()"><br>
+    <pre id="triangleOutput"></pre>
+  </section>
+
+  <!-- 3. String Checker -->
+  <section>
+    <h2>3. String Checker (10pts)</h2>
+    <input type="text" id="nameInput" placeholder="Enter a name">
+    <button onclick="addName()">Add Name</button>
+    <p><strong>Names Array:</strong></p>
+    <pre id="nameList"></pre>
+  </section>
+
+  <script>
+    // Problem 1: Reverse Words and Count
+    function reverseWords() {
+      const text = document.getElementById("sentenceInput").value.trim();
+      const words = text.split(/\s+/);
+      const reversed = words.reverse().join(" ");
+      document.getElementById("reversedOutput").textContent = reversed;
+      document.getElementById("wordCount").textContent = words.length;
+    }
+
+    // Problem 2: Right Triangle on Keyup
+    function drawTriangle() {
+      const n = parseInt(document.getElementById("triangleInput").value);
+      let output = "";
+      for (let i = 1; i <= n; i++) {
+        output += "*".repeat(i) + "\n";
+      }
+      document.getElementById("triangleOutput").textContent = output;
+    }
+
+    // Problem 3: String Checker
+    const names = [];
+
+    function addName() {
+      const input = document.getElementById("nameInput").value.trim();
+      if (input && !names.includes(input)) {
+        names.push(input);
+      }
+      document.getElementById("nameList").textContent = JSON.stringify(names, null, 2);
+      document.getElementById("nameInput").value = "";
+    }
+  </script>
+
+</body>
+</html>

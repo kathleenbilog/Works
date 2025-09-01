@@ -1,0 +1,236 @@
+Microsoft Windows [Version 10.0.22621.2070]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Kathleen Shane Bilog>cd\
+
+C:\>cd xampp/mysql/bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 66
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database BilogKathleenShane_LabQuiz1;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> use BilogKathleenShane_LabQuiz1;
+Database changed
+MariaDB [BilogKathleenShane_LabQuiz1]> create table MEMBER (memberID int, membername varchar(250), membersex enum("Male","Female"), memberclassno int, Primary Key(memberID));
+Query OK, 0 rows affected (0.018 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]> create table MEMBER
+    -> create table MEMBER_CAT (memberCATID int, member_type varchar(250));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'create table MEMBER_CAT (memberCATID int, member_type varchar(250))' at line 2
+MariaDB [BilogKathleenShane_LabQuiz1]> create table MEMBER_CAT (memberCATID int, member_type varchar(250));
+Query OK, 0 rows affected (0.022 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]> alter table MEMBER_CAT modify memberCATID int primary key;
+Query OK, 0 rows affected (0.033 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [BilogKathleenShane_LabQuiz1]> create table INVOICE (invoice_no int auto_increment, inv_d8 date, memberno int, Primary Key(invoice_no));
+Query OK, 0 rows affected (0.056 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]> create table PAYMENT (payNo int auto_increment, payment_mode varchar(250), pay_amount int Check(pay_amount >= 0), inv
+oiceID int, Primary Key(payNo));
+Query OK, 0 rows affected (0.059 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]> show tables;
++---------------------------------------+
+| Tables_in_bilogkathleenshane_labquiz1 |
++---------------------------------------+
+| invoice                               |
+| member                                |
+| member_cat                            |
+| payment                               |
++---------------------------------------+
+4 rows in set (0.003 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]> describe invoice;
++------------+---------+------+-----+---------+----------------+
+| Field      | Type    | Null | Key | Default | Extra          |
++------------+---------+------+-----+---------+----------------+
+| invoice_no | int(11) | NO   | PRI | NULL    | auto_increment |
+| inv_d8     | date    | YES  |     | NULL    |                |
+| memberno   | int(11) | YES  |     | NULL    |                |
++------------+---------+------+-----+---------+----------------+
+3 rows in set (0.055 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]> describe payment;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| payNo        | int(11)      | NO   | PRI | NULL    | auto_increment |
+| payment_mode | varchar(250) | YES  |     | NULL    |                |
+| pay_amount   | int(11)      | YES  |     | NULL    |                |
+| invoiceID    | int(11)      | YES  |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.054 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]> describe member_cat;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| memberCATID | int(11)      | NO   | PRI | NULL    |       |
+| member_type | varchar(250) | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+2 rows in set (0.053 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]> describe member;
++---------------+-----------------------+------+-----+---------+-------+
+| Field         | Type                  | Null | Key | Default | Extra |
++---------------+-----------------------+------+-----+---------+-------+
+| memberID      | int(11)               | NO   | PRI | NULL    |       |
+| membername    | varchar(250)          | YES  |     | NULL    |       |
+| membersex     | enum('Male','Female') | YES  |     | NULL    |       |
+| memberclassno | int(11)               | YES  |     | NULL    |       |
++---------------+-----------------------+------+-----+---------+-------+
+4 rows in set (0.054 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]> alter table member add constraint jdwyd Foreign Key(memberclassno) references member_cat(memberCATID);
+Query OK, 0 rows affected (0.050 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [BilogKathleenShane_LabQuiz1]> describe member;
++---------------+-----------------------+------+-----+---------+-------+
+| Field         | Type                  | Null | Key | Default | Extra |
++---------------+-----------------------+------+-----+---------+-------+
+| memberID      | int(11)               | NO   | PRI | NULL    |       |
+| membername    | varchar(250)          | YES  |     | NULL    |       |
+| membersex     | enum('Male','Female') | YES  |     | NULL    |       |
+| memberclassno | int(11)               | YES  | MUL | NULL    |       |
++---------------+-----------------------+------+-----+---------+-------+
+4 rows in set (0.018 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]> alter table invoice add constraint gdsu Foreign Key(memberno) references member(memberID);
+Query OK, 0 rows affected (0.038 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [BilogKathleenShane_LabQuiz1]> describe invoice;
++------------+---------+------+-----+---------+----------------+
+| Field      | Type    | Null | Key | Default | Extra          |
++------------+---------+------+-----+---------+----------------+
+| invoice_no | int(11) | NO   | PRI | NULL    | auto_increment |
+| inv_d8     | date    | YES  |     | NULL    |                |
+| memberno   | int(11) | YES  | MUL | NULL    |                |
++------------+---------+------+-----+---------+----------------+
+3 rows in set (0.018 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]> alter table payment add constraint hdygd Foreign Key(invoiceID) references invoice(invoice_no);
+Query OK, 0 rows affected (0.085 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [BilogKathleenShane_LabQuiz1]> describe payment;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| payNo        | int(11)      | NO   | PRI | NULL    | auto_increment |
+| payment_mode | varchar(250) | YES  |     | NULL    |                |
+| pay_amount   | int(11)      | YES  |     | NULL    |                |
+| invoiceID    | int(11)      | YES  | MUL | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.056 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]> alter table member add member_loc varchar(250), add member_bdate date after membersex;
+Query OK, 0 rows affected (0.021 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [BilogKathleenShane_LabQuiz1]> describe member;
++---------------+-----------------------+------+-----+---------+-------+
+| Field         | Type                  | Null | Key | Default | Extra |
++---------------+-----------------------+------+-----+---------+-------+
+| memberID      | int(11)               | NO   | PRI | NULL    |       |
+| membername    | varchar(250)          | YES  |     | NULL    |       |
+| membersex     | enum('Male','Female') | YES  |     | NULL    |       |
+| member_bdate  | date                  | YES  |     | NULL    |       |
+| memberclassno | int(11)               | YES  | MUL | NULL    |       |
+| member_loc    | varchar(250)          | YES  |     | NULL    |       |
++---------------+-----------------------+------+-----+---------+-------+
+6 rows in set (0.016 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]> alter table payment modify payment_mode enum("gcash", "cash", "credit card");
+Query OK, 0 rows affected (0.054 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [BilogKathleenShane_LabQuiz1]> describe payment;
++--------------+------------------------------------+------+-----+---------+----------------+
+| Field        | Type                               | Null | Key | Default | Extra          |
++--------------+------------------------------------+------+-----+---------+----------------+
+| payNo        | int(11)                            | NO   | PRI | NULL    | auto_increment |
+| payment_mode | enum('gcash','cash','credit card') | YES  |     | NULL    |                |
+| pay_amount   | int(11)                            | YES  |     | NULL    |                |
+| invoiceID    | int(11)                            | YES  | MUL | NULL    |                |
++--------------+------------------------------------+------+-----+---------+----------------+
+4 rows in set (0.053 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]> show tables;
++---------------------------------------+
+| Tables_in_bilogkathleenshane_labquiz1 |
++---------------------------------------+
+| invoice                               |
+| member                                |
+| member_cat                            |
+| payment                               |
++---------------------------------------+
+4 rows in set (0.002 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]> describe invoice;
++------------+---------+------+-----+---------+----------------+
+| Field      | Type    | Null | Key | Default | Extra          |
++------------+---------+------+-----+---------+----------------+
+| invoice_no | int(11) | NO   | PRI | NULL    | auto_increment |
+| inv_d8     | date    | YES  |     | NULL    |                |
+| memberno   | int(11) | YES  | MUL | NULL    |                |
++------------+---------+------+-----+---------+----------------+
+3 rows in set (0.015 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]> describe member;
++---------------+-----------------------+------+-----+---------+-------+
+| Field         | Type                  | Null | Key | Default | Extra |
++---------------+-----------------------+------+-----+---------+-------+
+| memberID      | int(11)               | NO   | PRI | NULL    |       |
+| membername    | varchar(250)          | YES  |     | NULL    |       |
+| membersex     | enum('Male','Female') | YES  |     | NULL    |       |
+| member_bdate  | date                  | YES  |     | NULL    |       |
+| memberclassno | int(11)               | YES  | MUL | NULL    |       |
+| member_loc    | varchar(250)          | YES  |     | NULL    |       |
++---------------+-----------------------+------+-----+---------+-------+
+6 rows in set (0.013 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]> describe member_cat;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| memberCATID | int(11)      | NO   | PRI | NULL    |       |
+| member_type | varchar(250) | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+2 rows in set (0.013 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]> describe payment;
++--------------+------------------------------------+------+-----+---------+----------------+
+| Field        | Type                               | Null | Key | Default | Extra          |
++--------------+------------------------------------+------+-----+---------+----------------+
+| payNo        | int(11)                            | NO   | PRI | NULL    | auto_increment |
+| payment_mode | enum('gcash','cash','credit card') | YES  |     | NULL    |                |
+| pay_amount   | int(11)                            | YES  |     | NULL    |                |
+| invoiceID    | int(11)                            | YES  | MUL | NULL    |                |
++--------------+------------------------------------+------+-----+---------+----------------+
+4 rows in set (0.014 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]> show tables;
++---------------------------------------+
+| Tables_in_bilogkathleenshane_labquiz1 |
++---------------------------------------+
+| invoice                               |
+| member                                |
+| member_cat                            |
+| payment                               |
++---------------------------------------+
+4 rows in set (0.003 sec)
+
+MariaDB [BilogKathleenShane_LabQuiz1]>
